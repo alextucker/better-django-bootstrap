@@ -1,8 +1,9 @@
 # Django settings for project project.
-from os import environ
-import ast
+from os import environ, path
 
-DEBUG = ast.literal_eval(environ['DEBUG'])
+PROJECT_ROOT = path.abspath(path.dirname(path.dirname(__file__)))
+
+DEBUG = environ['DEBUG'].lower() == 'true'
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
@@ -50,7 +51,7 @@ USE_TZ = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
-MEDIA_ROOT = ''
+MEDIA_ROOT = path.join(PROJECT_ROOT, 'media/')
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
@@ -69,6 +70,7 @@ STATIC_URL = '/static/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
+    path.join(PROJECT_ROOT, 'static/'),
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
@@ -83,7 +85,7 @@ STATICFILES_FINDERS = (
 )
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = 'tfp%@e2d0dr0o67^w8(hxbe9@7q6kh(3i7j%unj#^=s0ltl&amp;*7'
+SECRET_KEY = 'MYOWNSECRETKEY'
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
